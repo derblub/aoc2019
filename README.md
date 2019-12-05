@@ -13,3 +13,4 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 02 | bash                |
 | day 03 | javascript          |
 | day 04 | php                 |
+| day 05 | assembly (cheated)  |
