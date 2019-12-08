@@ -8,7 +8,7 @@ Since it looks pretty much like I'm going to use a different language each day, 
 ## completed days
 
 | day    | language            | completed? |
-|--------|---------------------|------------|
+|--------|---------------------|:----------:|
 | day 01 | python              | ✔️          |
 | day 02 | bash                | ✔️          |
 | day 03 | javascript          | ✔️          |
