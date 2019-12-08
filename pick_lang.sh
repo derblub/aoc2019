@@ -2,8 +2,8 @@
 
 # picks a random programming language and updates variables-list _in-file_
 
-LANGUAGES=( go c++ haskell scala kotlin ruby perl   dart elixir rust haxe d  swift elm fortran nim cobol racket)
-DONE=(pascal erlang assembly php javascript bash python)
+LANGUAGES=( go c++ haskell scala  ruby perl   dart elixir rust haxe d  swift elm fortran nim cobol racket)
+DONE=(kotlin pascal erlang assembly php javascript bash python)
 
 if [ ${#LANGUAGES[@]} -eq 0 ]; then
   echo "no more languages to pick from" && exit 1

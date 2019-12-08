@@ -7,11 +7,13 @@ Since it looks pretty much like I'm going to use a different language each day, 
 
 ## completed days
 
-| day    | done in language    |
-|--------|---------------------|
-| day 01 | python              |
-| day 02 | bash                |
-| day 03 | javascript          |
-| day 04 | php                 |
-| day 05 | assembly (cheated)  |
-| day 06 | erlang              |
+| day    | language            | completed? |
+|--------|---------------------|------------|
+| day 01 | python              | ✔️          |
+| day 02 | bash                | ✔️          |
+| day 03 | javascript          | ✔️          |
+| day 04 | php                 | ✔️          |
+| day 05 | assembly (cheated)  | ✔️❌         |
+| day 06 | erlang              | ✔️          |
+| day 07 | pascal              | ❌          |
+| day 08 | kotlin              | ❌          |
