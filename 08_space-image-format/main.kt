@@ -28,7 +28,7 @@ object Main {
         var layers = intStringToIntList(getContents("input.txt")).chunked(width * height)
         val layersSorted = layers.map { Pair(countValue(it, 0), runChecksum(it)) }
         val leastZeros = layersSorted.minBy { it.first }?.second ?: -99
-        println(leastZeros)
+        leastZeros.print()
     }
 
     fun part2(width: Int, height: Int) {
