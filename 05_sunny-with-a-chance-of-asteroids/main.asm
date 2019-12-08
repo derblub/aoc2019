@@ -5,11 +5,11 @@
 ; which outputs two lines with the correct puzzle answer to stdout, calling `write`
 ; then exists calling `exit`.
 ;
-; nasm -f elf64 -o main.o main.asm && ld -o main main.o && ./main
+;   nasm -f elf64 -o main.o main.asm && ld -o main main.o && ./main
 ;
 ; get real outputs by executing following two scripts:
-; echo "1" | ./lib/intcode.py --input ./input.txt | cut -c 14- | sed "s/'/\"/g" | jq -r '.output[-1]'
-; echo "5" | ./lib/intcode.py --input ./input.txt | cut -c 14- | sed "s/'/\"/g" | jq -r '.output[-1]'
+;   ./lib/intcode.py --intcode ./input.txt --input 1 | sed "s/'/\"/g" | jq -r '.output[-1]'
+;   ./lib/intcode.py --intcode ./input.txt --input 5 | sed "s/'/\"/g" | jq -r '.output[-1]'
 
 
 global _start
