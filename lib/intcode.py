@@ -2,14 +2,14 @@
 import argparse
 
 instructions = {
-    1: 'add',
-    2: 'multiply',
-    3: 'input',
-    4: 'output',
-    5: 'jump_if_true',
-    6: 'jump_if_false',
-    7: 'less_than',
-    8: 'equals',
+    1: '_add',
+    2: '_multiply',
+    3: '_input',
+    4: '_output',
+    5: '_jump_if_true',
+    6: '_jump_if_false',
+    7: '_less_than',
+    8: '_equals',
 }
 
 
@@ -24,44 +24,70 @@ def _set(mem, index, value):
     mem['intcode'][mem['intcode'][mem['p'] + index]] = value
 
 
-def add(mem):
+def _add(mem):
     if mem['parameter_mode'] // 100 == 0:
         _set(mem, 3, _get(mem, 1) + _get(mem, 2))
     mem['p'] += 4
     return mem
 
 
-def multiply(mem):
+def _multiply(mem):
     if mem['parameter_mode'] // 100 == 0:
         _set(mem, 3, _get(mem, 1) * _get(mem, 2))
     mem['p'] += 4
     return mem
 
 
-def input(mem):
-    print("input")
+def _input(mem):
+    if mem['parameter_mode'] % 10 == 0:
+        value = int(input("Enter input: "))
+        _set(mem, 1, value)
     mem['p'] += 2
     return mem
 
 
-def output(mem):
+def _output(mem):
+    value = _get(mem, 1)
+    mem['output'].append(value)
     mem['p'] += 2
     return mem
 
 
-def jump_if_true(mem):
+def _jump_if_true(mem):
+    if _get(mem, 1) != 0:
+        mem['p'] = _get(mem, 2)
+    else:
+        mem['p'] += 3
     return mem
 
 
-def jump_if_false(mem):
+def _jump_if_false(mem):
+    if _get(mem, 1) == 0:
+        mem['p'] = _get(mem, 2)
+    else:
+        mem['p'] += 3
     return mem
 
 
-def less_than(mem):
+def _less_than(mem):
+    if mem['parameter_mode'] // 100 == 0:
+        if _get(mem, 1) < _get(mem, 2):
+            _set(mem, 3, 1)
+        else:
+            _set(mem, 3, 0)
+
+    mem['p'] += 4
     return mem
 
 
-def equals(mem):
+def _equals(mem):
+    if mem['parameter_mode'] // 100 == 0:
+        if _get(mem, 1) == _get(mem, 2):
+            _set(mem, 3, 1)
+        else:
+            _set(mem, 3, 0)
+
+    mem['p'] += 4
     return mem
 
 
@@ -85,6 +111,7 @@ def parse_intcode(input):
         'intcode': input,     # intcode list
         'p': 0,               # instruction pointer: address
         'parameter_mode': 0,  # (0): positional || 1: immediate
+        'output': [],
     }
     while mem['p'] < len(input):
         code = mem['intcode'][mem['p']]
@@ -97,7 +124,7 @@ def parse_intcode(input):
         else:
             raise ValueError("Error: opcode unknown: %s" % opcode)
 
-    return mem['intcode']
+    return mem
 
 
 def main():
@@ -119,7 +146,7 @@ def main():
     if input:
         try:
             output = parse_intcode(input)
-            print(str(output[0]))
+            print(str(output))
         except ValueError as e:
             print(e)
 

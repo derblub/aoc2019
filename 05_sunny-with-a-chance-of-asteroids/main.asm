@@ -6,6 +6,10 @@
 ; then exists calling `exit`.
 ;
 ; nasm -f elf64 -o main.o main.asm && ld -o main main.o && ./main
+;
+; get real outputs by executing following two scripts:
+; echo "1" | ./lib/intcode.py --input ./input.txt | cut -c 14- | sed "s/'/\"/g" | jq -r '.output[-1]'
+; echo "5" | ./lib/intcode.py --input ./input.txt | cut -c 14- | sed "s/'/\"/g" | jq -r '.output[-1]'
 
 
 global _start
