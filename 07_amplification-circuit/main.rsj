@@ -1,0 +1,4 @@
+{"version":1,"strings":[
+{"hash":88817902,"name":"main.error_runcommand","sourcebytes":[69,114,114,111,114,58,32,114,117,110,99,111,109,109,97,110,100,32,102,97,105,108,101,100,46],"value":"Error: runcommand failed."},
+{"hash":124568276,"name":"main.output_empty","sourcebytes":[110,111,32,111,117,116,112,117,116],"value":"no output"}
+]}
