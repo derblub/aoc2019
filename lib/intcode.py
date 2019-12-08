@@ -103,16 +103,23 @@ def parse_intcode(input):
 def main():
     params = argparse.ArgumentParser()
     params.add_argument("--input")
+    params.add_argument("--noun")
+    params.add_argument("--verb")
     args = params.parse_args()
     input = output = False
 
     if args.input:
         input = load_input(args.input)
 
+    if args.noun:
+        input[1] = int(args.noun)
+    if args.verb:
+        input[2] = int(args.verb)
+
     if input:
         try:
             output = parse_intcode(input)
-            print("output: %s" % str(output[0]))
+            print(str(output[0]))
         except ValueError as e:
             print(e)
 
