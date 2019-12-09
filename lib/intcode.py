@@ -10,41 +10,52 @@ instructions = {
     6: '_jump_if_false',
     7: '_less_than',
     8: '_equals',
+    9: '_adjust_base',
 }
 
 
-def _get(mem, index):
+def instruction_pointer_address(mem, index):
     parameter_mode = (mem['parameter_mode'] // (10 ** (index - 1))) % 10
     if parameter_mode == 0:
-        return mem['intcode'][mem['intcode'][mem['p'] + index]]
-    return mem['intcode'][mem['p'] + index]
+        ip_address = mem['intcode'][mem['p'] + index]
+    if parameter_mode == 1:
+        ip_address = mem['p'] + index
+    if parameter_mode == 2:
+        ip_address = mem['relative_base'] + mem['intcode'][mem['p'] + index]
+    try:
+        return ip_address
+    except NameError as e:
+        print(e)
+
+
+def _get(mem, index):
+    ip_address = instruction_pointer_address(mem, index)
+    return mem['intcode'][ip_address]
 
 
 def _set(mem, index, value):
-    mem['intcode'][mem['intcode'][mem['p'] + index]] = value
+    ip_address = instruction_pointer_address(mem, index)
+    mem['intcode'][ip_address] = value
 
 
 def _add(mem):
-    if mem['parameter_mode'] // 100 == 0:
-        _set(mem, 3, _get(mem, 1) + _get(mem, 2))
+    _set(mem, 3, _get(mem, 1) + _get(mem, 2))
     mem['p'] += 4
     return mem
 
 
 def _multiply(mem):
-    if mem['parameter_mode'] // 100 == 0:
-        _set(mem, 3, _get(mem, 1) * _get(mem, 2))
+    _set(mem, 3, _get(mem, 1) * _get(mem, 2))
     mem['p'] += 4
     return mem
 
 
 def _input(mem):
-    if mem['parameter_mode'] % 10 == 0:
-        if len(mem['input']):
-            value = mem['input'].pop(0)
-        else:
-            value = int(input("Enter input: "))
-        _set(mem, 1, value)
+    if len(mem['input']):
+        value = mem['input'].pop(0)
+    else:
+        value = int(input("Enter input: "))
+    _set(mem, 1, value)
     mem['p'] += 2
     return mem
 
@@ -73,24 +84,26 @@ def _jump_if_false(mem):
 
 
 def _less_than(mem):
-    if mem['parameter_mode'] // 100 == 0:
-        if _get(mem, 1) < _get(mem, 2):
-            _set(mem, 3, 1)
-        else:
-            _set(mem, 3, 0)
-
+    if _get(mem, 1) < _get(mem, 2):
+        _set(mem, 3, 1)
+    else:
+        _set(mem, 3, 0)
     mem['p'] += 4
     return mem
 
 
 def _equals(mem):
-    if mem['parameter_mode'] // 100 == 0:
-        if _get(mem, 1) == _get(mem, 2):
-            _set(mem, 3, 1)
-        else:
-            _set(mem, 3, 0)
-
+    if _get(mem, 1) == _get(mem, 2):
+        _set(mem, 3, 1)
+    else:
+        _set(mem, 3, 0)
     mem['p'] += 4
+    return mem
+
+
+def _adjust_base(mem):
+    mem['relative_base'] += _get(mem, 1)
+    mem['p'] += 2
     return mem
 
 
@@ -111,11 +124,12 @@ def parse_instruction(instruction_name, mem):
 
 def parse_intcode(intcode, input=False):
     mem = {  # memory
-        'intcode': intcode,     # intcode list
+        'intcode': intcode,   # intcode list
         'p': 0,               # instruction pointer: address
         'parameter_mode': 0,  # (0): positional || 1: immediate
         'input': input,
         'output': [],
+        'relative_base': 0,
     }
     while mem['p'] < len(intcode):
         code = mem['intcode'][mem['p']]
