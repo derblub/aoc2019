@@ -18,3 +18,4 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 07 | pascal              | ❌          |
 | day 08 | kotlin              | ✔️          |
 | day 09 | haxe                | ❌          |
+| day 10 | elm                 | ❌          |
