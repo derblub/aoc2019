@@ -7,18 +7,22 @@ import sys.io.Process;
 
 class Main {
   static public function main():Void {
-    var machine = new Process("python", ["../lib/intcode.py", "--intcode", "input.txt" ]);
-    trace("exitcode: " + machine.exitCode());
-    trace("process id: " + machine.getPid());
+    var regexp:EReg = ~/output': \[(\d+)\]/;
 
-    // read everything from stderr
-    var error = machine.stderr.readAll().toString();
-    trace("stderr:\n" + error);
-
-    // read everything from stdout
+    // p1
+    var machine = new Process("python", ["../lib/intcode.py", "--intcode", "input.txt", "--input", "1" ]);
     var stdout = machine.stdout.readAll().toString();
-    trace("stdout:\n" + stdout);
-
+    regexp.match(stdout);
+    var output = regexp.matched(1);
+    trace(output);
     machine.close();
+
+    var machine = new Process("python", ["../lib/intcode.py", "--intcode", "input.txt", "--input", "2" ]);
+    var stdout = machine.stdout.readAll().toString();
+    regexp.match(stdout);
+    var output = regexp.matched(1);
+    trace(output);
+    machine.close();
+
   }
 }

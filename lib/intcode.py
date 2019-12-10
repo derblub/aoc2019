@@ -22,10 +22,15 @@ def instruction_pointer_address(mem, index):
         ip_address = mem['p'] + index
     if parameter_mode == 2:
         ip_address = mem['relative_base'] + mem['intcode'][mem['p'] + index]
+
     try:
         return ip_address
     except NameError as e:
         print(e)
+
+
+def _allocate_address(mem, ip_address):
+    [mem['intcode'].extend([0]) for i in range(len(mem['intcode']), ip_address + 1)]
 
 
 def _get(mem, index):
@@ -35,6 +40,8 @@ def _get(mem, index):
 
 def _set(mem, index, value):
     ip_address = instruction_pointer_address(mem, index)
+    if ip_address >= len(mem['intcode']):
+        _allocate_address(mem, ip_address)
     mem['intcode'][ip_address] = value
 
 
@@ -122,9 +129,9 @@ def parse_instruction(instruction_name, mem):
     return instruction(mem)
 
 
-def parse_intcode(intcode, input=False):
+def parse_intcode(intcode, input=[]):
     mem = {  # memory
-        'intcode': intcode,   # intcode list
+        'intcode': intcode,   # intcode dict
         'p': 0,               # instruction pointer: address
         'parameter_mode': 0,  # (0): positional || 1: immediate
         'input': input,
@@ -152,7 +159,8 @@ def main():
     params.add_argument("--verb")
     params.add_argument("--input")
     args = params.parse_args()
-    intcode = output = input = False
+    input = []
+    intcode = output = False
 
     if args.intcode:
         intcode = load_intcode(args.intcode)
