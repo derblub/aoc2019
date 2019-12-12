@@ -15,25 +15,31 @@ int main() {
   // Set PYTHONPATH TO working directory
   setenv("PYTHONPATH", "../lib/", 1);
 
-  PyObject *pName, *pModule, *pDict, *pFunc, *pValue, *presult;
+  PyObject *pName, *pModule, *pDict, *pClass, *pInstance, *pFunc, *pValue, *presult;
 
-   // Initialize the Python Interpreter
-   Py_Initialize();
+  pName = PyUnicode_FromString("IntCodeComputer");
+  pModule = PyImport_Import(pName);
+  pDict = PyModule_GetDict(pModule);
+  pClass = PyDict_GetItemString(pDict, "IntCodeComputer");
 
-  PyObject* module = PyImport_ImportModule("intcode");
-  assert(module != NULL);
+  if (PyCallable_Check(pClass)){
+      pInstance = PyObject_CallObject(pClass, NULL);
+  }else{
+      std::cout << "Cannot instantiate IntCodeComputer" << std::endl;
+  }
 
-  PyObject* klass = PyObject_GetAttrString(module, "IntCodeComputer");
-  assert(klass != NULL);
+  Py_DECREF(pModule);
+  Py_DECREF(pName);
+  Py_DECREF(pValue);
 
-  // PyObject* instance = PyInstance_New(klass, NULL, NULL);
-  // assert(instance != NULL);
-  PyObject* main_mod = PyMapping_GetItemString(module, "IntCodeComputer");
+  presult = PyObject_CallMethod(pInstance, "load_intcode", "input.txt");
+  if (presult)
+      Py_DECREF(presult);
+  else
+      PyErr_Print();
 
-  PyObject* result = PyObject_CallMethod(main_mod, "load_intcode", "input.txt");
-  // assert(result != NULL);
 
-  printf("output: %ld\n", PyLong_AsLong(result));
+  printf("output: %ld\n", PyUnicode_FromObject(presult));
 
   Py_Finalize();
 
