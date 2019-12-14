@@ -22,4 +22,4 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 11 | c++                 | ❌          |
 | day 12 | dart                | ✔️          |
 | day 13 | haskell             | ❌          |
-| day 14 | swift               | ❌          |
+| day 14 | swift               | ✔️          |
