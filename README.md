@@ -21,4 +21,5 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 10 | elm                 | ✔️          |
 | day 11 | c++                 | ❌          |
 | day 12 | dart                | ✔️          |
-| day 12 | haskell             | ❌          |
+| day 13 | haskell             | ❌          |
+| day 14 | swift               | ❌          |
