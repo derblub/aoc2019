@@ -30,7 +30,7 @@ class IntCodeComputer(object):
             return [int(op_code) for op_code in data.split(' ')]
 
     def start_program(self):
-        self.step_program()
+        return self.step_program()
 
     def step_program(self, input_=None):
         self.input.extend(input_ if input_ else [])
