@@ -25,4 +25,4 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 13 | haskell               | ✔️            | ❌          |
 | day 14 | swift                 |  ️            | ✔️          |
 | day 15 | python                | ✔️            | ✔️          |
-| day 16 | rust                  |              | ❌          |
+| day 16 | rust                  |              | ✔️          |
