@@ -18,14 +18,14 @@ fn fft(input: &str, phases: i32) -> Result<Vec<i32>, Box<dyn Error>>{
     for _ in 0..phases {
         for (i, out) in phase.iter_mut().enumerate() {
             let mut sum = 0;
-            let mut pattern_counter = i + 1;
-            let mut pattern_digit = 1;
+            let mut counter = i + 1;
+            let mut p_digit = 1;
             for digit in &values[i..] {
-                if pattern_counter == 0 {
-                    pattern_counter = i + 1;
-                    pattern_digit = (pattern_digit + 1) % pattern.len();
+                if counter == 0 {
+                    counter = i + 1;
+                    p_digit = (p_digit + 1) % pattern.len();
                 }
-                sum += *digit * pattern[pattern_digit];
+                sum += *digit * pattern[p_digit];
                 pattern_counter -= 1;
             }
             *out = sum.abs() % 10;
