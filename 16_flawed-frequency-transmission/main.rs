@@ -26,7 +26,7 @@ fn fft(input: &str, phases: i32) -> Result<Vec<i32>, Box<dyn Error>>{
                     p_digit = (p_digit + 1) % pattern.len();
                 }
                 sum += *digit * pattern[p_digit];
-                pattern_counter -= 1;
+                counter -= 1;
             }
             *out = sum.abs() % 10;
         }
