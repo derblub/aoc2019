@@ -6,25 +6,12 @@ use std::fs;
 use std::error::Error;
 
 
-fn fft(input: &str, phases: i32, p2: bool) -> Result<Vec<i32>, Box<dyn Error>>{
-    let mut values = {
-        let initial_values = input
-            .trim()
-            .chars()
-            .map(|c| c.to_digit(10).map(|d| d as i32).ok_or("Not Digit"))
-            .collect::<Result<Vec<_>, _>>()?;
-        if p2 {
-            let mut values = Vec::new();
-            values.resize_with(initial_values.len() * 10_000, Default::default);
-            for i in 0..10_000 {
-                values[(i * initial_values.len())..((i + 1) * initial_values.len())]
-                    .copy_from_slice(&initial_values);
-            }
-            values
-        }else{
-            initial_values
-        }
-    };
+fn fft(input: &str, phases: i32) -> Result<Vec<i32>, Box<dyn Error>>{
+    let mut values = input
+        .trim()
+        .chars()
+        .map(|c| c.to_digit(10).map(|d| d as i32).ok_or("Not Digit"))
+        .collect::<Result<Vec<_>, _>>()?;
 
     let mut phase = values.clone();
     let pattern = [0, 1, 0, -1];
@@ -75,7 +62,7 @@ fn part2(digits: &[i32]) -> i32 {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let input = fs::read_to_string("input.txt")?;
-    let output_full = fft(&input, 100, false)?;
+    let output_full = fft(&input, 100)?;
     let output_first8 = &output_full[..8];
     let output = output_first8
         .into_iter()
