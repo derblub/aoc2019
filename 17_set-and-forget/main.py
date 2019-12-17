@@ -23,12 +23,13 @@ def calibrate_cam(map_):
     return ap_sum
 
 
-def render_grid(grid):
+def render_grid(grid, show=False):
     tiles = []
     for tile in grid:
         tiles.append(str(chr(tile)))
     output = "".join(tiles)
-    print(output)
+    if show:
+        print(output)
     return [[c for c in line] for line in output.splitlines()]
 
 
@@ -41,7 +42,7 @@ def main():
     computer = IntCodeComputer(program)
     out = computer.start_program()
     map_ = render_grid(out)
-    print("output: %d" % calibrate_cam(map_))
+    output_p1 = calibrate_cam(map_)
 
     # manual path mapping + zipping
     # L, 12, L, 8, R, 10, R, 10,        A
@@ -59,15 +60,16 @@ def main():
     b = "L,6,L,4,L,12"
     c = "R,10,L,8,L,4,R,10"
     zipped = "A,B,A,B,C,B,A,C,B,C"
-    routine = zipped + "\n" + a + "\n" + b + "\n" + c + "\n" + "y\n"
+    routine = zipped + "\n" + a + "\n" + b + "\n" + c + "\n" + "n\n"
     input_ = [ord(x) for x in routine]
-    print(input_)
 
     program[0] = 2
     computer = IntCodeComputer(program, input_)
     out = computer.start_program()
-    map_ = render_grid(out)
-    print(out)
+    map_ = render_grid(out, True)
+
+    print("output: %d" % output_p1)
+    print("output p2: %d" % out.pop())
 
 
 if __name__ == "__main__":

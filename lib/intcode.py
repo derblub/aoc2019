@@ -15,7 +15,7 @@ class IntCodeComputer(object):
             8: '_equals',
             9: '_adjust_base',
         }
-        self.intcode = intcode  # intcode list
+        self.intcode_original = intcode
         self.p = 0  # instruction pointer: address
         self.parameter_mode = 0  # (0): positional || 1: immediate
         self.relative_base = 0
@@ -30,6 +30,7 @@ class IntCodeComputer(object):
             return [int(op_code) for op_code in data.split(' ')]
 
     def start_program(self):
+        self.intcode = self.intcode_original.copy()  # intcode list
         return self.step_program()
 
     def step_program(self, input_=None):
