@@ -26,4 +26,5 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 14 | swift                 |  ️            | ✔️          |
 | day 15 | python                | ✔            | ✔️          |
 | day 16 | rust                  |              | ✔️          |
-| day 17 | python                | ✔            | ❌          |
+| day 17 | python                | ✔            | ✔️          |
+| day 18 | elixir                |              | ❌          |
