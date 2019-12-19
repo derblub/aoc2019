@@ -16,11 +16,12 @@ class IntCodeComputer(object):
             9: '_adjust_base',
         }
         self.intcode_original = intcode
+        self.intcode = []
         self.p = 0  # instruction pointer: address
         self.parameter_mode = 0  # (0): positional || 1: immediate
         self.relative_base = 0
-        self.input = input_ if input_ else []
         self.wait_for_input = True
+        self.input = []
         self.output = []
 
     @staticmethod
@@ -29,9 +30,12 @@ class IntCodeComputer(object):
             data = f.read().replace('\n', '').replace(',', ' ')
             return [int(op_code) for op_code in data.split(' ')]
 
-    def start_program(self):
+    def start_program(self, input_=None):
+        self.p = 0
+        self.relative_base = 0
         self.intcode = self.intcode_original.copy()  # intcode list
-        return self.step_program()
+        self.input = input_ if input_ else []
+        return self.step_program(input_)
 
     def step_program(self, input_=None):
         self.input.extend(input_ if input_ else [])

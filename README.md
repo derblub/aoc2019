@@ -28,3 +28,4 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 16 | rust                  |              | ✔️          |
 | day 17 | python                | ✔            | ✔️          |
 | day 18 | elixir                |              | ✔️          |
+| day 19 | python                | ✔            | ✔️          |
