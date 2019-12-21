@@ -30,4 +30,4 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 18 | elixir                |              | ✔️          |
 | day 19 | python                | ✔            | ✔️          |
 | day 20 | scala                 |              | ✔️          |
-| day 22 | python                | ✔            | ❌          |
+| day 21 | python                | ✔            | ❌          |
