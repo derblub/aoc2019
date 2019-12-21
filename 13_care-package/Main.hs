@@ -11,3 +11,4 @@ main :: IO ()
 main = do
 	Py.initialize
 	Py.getVersion >>= T.putStrLn
+-- not working, so I finished it up in python: main.py

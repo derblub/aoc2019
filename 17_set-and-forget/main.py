@@ -1,6 +1,7 @@
 # https://adventofcode.com/2019/day/17
 
 
+import re
 import os
 import sys
 
@@ -34,7 +35,46 @@ def render_grid(grid, show=False):
 
 
 def find_path(map_):
-    pass
+    x, y = 0, 0
+    grid = ["".join(line) for line in map_]
+    turn_r = {
+        (0, 1): (1, 0),
+        (1, 0): (0, -1),
+        (0, -1): (-1, 0),
+        (-1, 0): (0, 1),
+    }
+    turn_l = {
+        (0, 1): (-1, 0),
+        (-1, 0): (0, -1),
+        (0, -1): (1, 0),
+        (1, 0): (0, 1),
+    }
+    direction = 0, +1
+    path = ['R', 0]
+    while True:
+        nx, ny = x + direction[0], y + direction[1]
+        if 0 <= nx <= len(grid) - 1 and 0 <= ny <= len(grid[0]) - 1 and grid[nx][ny] == '#':
+            x, y = nx, ny
+            path[-1] += 1
+        else:
+            r = turn_r[direction]
+            nx, ny = x + r[0], y + r[1]
+            if 0 <= nx <= len(grid) - 1 and 0 <= ny <= len(grid[0]) - 1 and grid[nx][ny] == '#':
+                x, y = nx, ny
+                direction = r
+                path.append('R')
+                path.append(1)
+            else:
+                l = turn_l[direction]
+                nx, ny = x + l[0], y + l[1]
+                if 0 <= nx <= len(grid) - 1 and 0 <= ny <= len(grid[0]) - 1 and grid[nx][ny] == '#':
+                    x, y = nx, ny
+                    direction = l
+                    path.append('L')
+                    path.append(1)
+                else:
+                    break
+    return ','.join(str(s) for s in path)
 
 
 def main():
@@ -43,8 +83,11 @@ def main():
     out = computer.start_program()
     map_ = render_grid(out)
     output_p1 = calibrate_cam(map_)
+    path = find_path(map_)
 
     # manual path mapping + zipping
+    # L,12,L,8,R,10,R,10,L,6,L,4,L,12,L,12,L,8,R,10,R,10,L,6,L,4,L,12,R,10,L,8,L,4,R,10,L,6,L,4,L,12,L,12,L,8,R,10,R,10,R,10,L,8,L,4,R,10,L,6,L,4,L,12,R,10,L,8,L,4,R,10
+
     # L, 12, L, 8, R, 10, R, 10,        A
     # L, 6, L, 4, L, 12,                B
     # L, 12, L, 8, R, 10, R, 10,        A

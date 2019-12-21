@@ -56,8 +56,8 @@ def find_square(computer, x, y):
 
 
 def part2(computer):
-    min_y = 0
-    for x in itertools.count(10, 1):
+    min_y = 1200  # make things faster
+    for x in itertools.count(950, 1):  # make things faster
         min_y, max_y = find_y(computer, x, min_y)
         y = max_y + 1
         if y - min_y < 100:

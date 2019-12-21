@@ -11,7 +11,7 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day    | language              | uses IntCode? | completed? |
 |--------|-----------------------|:-------------:|:----------:|
 | day 01 | python                |  ️            | ✔️          |
-| day 02 | bash                  |             | ✔️          |
+| day 02 | bash                  | ✔            | ✔️          |
 | day 03 | javascript            |  ️            | ✔️          |
 | day 04 | php                   |  ️            | ✔️          |
 | day 05 | assembly *(cheated)*  | ✔            | ✔️          |
@@ -29,3 +29,5 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 17 | python                | ✔            | ✔️          |
 | day 18 | elixir                |              | ✔️          |
 | day 19 | python                | ✔            | ✔️          |
+| day 20 | scala                 |              | ✔️          |
+| day 22 | python                | ✔            | ❌          |
