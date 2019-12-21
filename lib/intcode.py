@@ -151,6 +151,9 @@ def main():
     params.add_argument("--noun")
     params.add_argument("--verb")
     params.add_argument("--input")
+    params.add_argument("--echo_intcode", action='store_true')
+    params.add_argument("--echo_output", action='store_true')
+
     args = params.parse_args()
     input_ = []
     intcode = False
@@ -172,6 +175,11 @@ def main():
         if computer.wait_for_input:
             value = input("Enter input: ")
             computer.step_program([int(value)])
+
+    if args.echo_intcode:
+        print(computer.intcode)
+    if args.echo_output:
+        print(computer.output)
 
 
 if __name__ == "__main__":
