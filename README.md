@@ -31,3 +31,7 @@ Since it looks pretty much like I'm going to use a different language each day, 
 | day 19 | python                | ✔            | ✔️          |
 | day 20 | scala                 |              | ✔️          |
 | day 21 | python                | ✔            | ✔          |
+| day 22 | ruby                  |              | ❌          |
+| day 23 | python                | ✔            | ❌          |
+| day 24 | go                    |              | ❌          |
+| day 25 | python                | ✔            | ❌          |
